@@ -68,7 +68,13 @@ module ActiveRecord
             disconnect!
             connect
             raise e
-          end            
+          rescue ActiveRecord::StatementInvalid => e
+            if e.cause.is_a?(::PG::UnableToSend)
+              disconnect!
+              connect
+              raise e
+            end
+          end
         end
       end
     end
