@@ -72,8 +72,8 @@ module ActiveRecord
             if e.cause.is_a?(::PG::UnableToSend)
               disconnect!
               connect
-              raise e
             end
+            raise e
           end
         end
       end
