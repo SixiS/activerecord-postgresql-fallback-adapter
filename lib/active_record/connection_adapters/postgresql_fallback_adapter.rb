@@ -64,7 +64,7 @@ module ActiveRecord
           
           begin
             @connection.async_exec(sql, type_casted_binds)
-          rescue ::PG::ConnectionBad => e
+          rescue ::PG::ConnectionBad, ::PG::UnableToSend => e
             disconnect!
             connect
             raise e
